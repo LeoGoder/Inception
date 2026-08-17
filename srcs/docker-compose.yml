@@ -1,0 +1,19 @@
+services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+    restart: always
+    networks:
+      - inception-net
+    volumes:
+      - website_files:/var/www/html
+
+volumes:
+  website_files:
+
+  
+networks:
+  inception-net:
+    driver: bridge
