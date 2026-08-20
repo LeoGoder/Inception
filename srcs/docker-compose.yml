@@ -10,8 +10,41 @@ services:
     volumes:
       - website_files:/var/www/html
 
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    secrets:
+      - dbpassword
+      - user
+    restart: always
+    networks:
+      - inception-net
+    volumes:
+      - database:/var/lib/mysql
+
+secrets:
+  dbpassword:
+    file: ./requirements/secrets/mariadb/DBPW.TXT
+    
+  user:
+    file: ./requirements/secrets/mariadb/USER.TXT
+
 volumes:
   website_files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/lgoderne/data/wordpress
+
+  database:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/lgoderne/data/mariadb
 
   
 networks:
