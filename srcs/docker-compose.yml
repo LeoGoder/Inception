@@ -13,10 +13,8 @@ services:
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
-    ports:
-      - "3306:3306"
     secrets:
-      - dbpassword
+      - db
       - user
     restart: always
     networks:
@@ -24,10 +22,23 @@ services:
     volumes:
       - database:/var/lib/mysql
 
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    secrets:
+      - db
+      - user
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - inception-net
+    volumes:
+      - website_files:/var/www/html
+
 secrets:
-  dbpassword:
-    file: ./requirements/secrets/mariadb/DBPW.TXT
-    
+  db:
+    file: ./requirements/secrets/mariadb/DB.TXT
   user:
     file: ./requirements/secrets/mariadb/USER.TXT
 

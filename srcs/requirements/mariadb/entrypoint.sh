@@ -10,14 +10,16 @@ fi
 mysqld_safe &
 sleep 5
 
+source /run/secrets/db
+source /run/secrets/user
 
-mariadb -e"
-CREATE DATABASE IF NOT EXISTS data;
-CREATE USER IF NOT EXISTS '${USER}'@'%' IDENTIFIED BY '${UMDP}';
-GRANT ALL PRIVILEGES ON data.* TO '${USER}'@'%';
+mariadb -e "
+CREATE DATABASE IF NOT EXISTS ${DBNAME};
+CREATE USER IF NOT EXISTS '${DBUSER}'@'%' IDENTIFIED BY '${UMDP}';
+GRANT ALL PRIVILEGES ON ${DBNAME}.* TO '${DBUSER}'@'%';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DBMDP}';
 FLUSH PRIVILEGES;
-USE data;
+USE ${DBNAME};
 CREATE TABLE IF NOT EXISTS users (id INT, nom varchar(50));
 SHOW TABLES;
 "
