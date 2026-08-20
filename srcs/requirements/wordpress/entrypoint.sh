@@ -1,6 +1,8 @@
 #!/bin/bash
 
-sleep 5
+while ! nc -z mariadb 3306; do
+    sleep 1
+done
 source /run/secrets/db
 source /run/secrets/user
 cd /var/www/html
