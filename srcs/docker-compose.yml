@@ -36,9 +36,17 @@ services:
     volumes:
       - website_files:/var/www/html
 
+# bonus part
   adminer:
     build: ./requirements/bonus/adminer
     container_name: adminer
+    restart: always
+    networks:
+      - inception-net
+
+  static:
+    build: ./requirements/bonus/static
+    container_name: static
     restart: always
     networks:
       - inception-net
