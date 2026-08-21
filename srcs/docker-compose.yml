@@ -36,11 +36,18 @@ services:
     volumes:
       - website_files:/var/www/html
 
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    restart: always
+    networks:
+      - inception-net
+
 secrets:
   db:
-    file: ./requirements/secrets/mariadb/DB.TXT
+    file: ./requirements/secrets/DB.TXT
   user:
-    file: ./requirements/secrets/mariadb/USER.TXT
+    file: ./requirements/secrets/USER.TXT
 
 volumes:
   website_files:
