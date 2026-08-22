@@ -51,11 +51,26 @@ services:
     networks:
       - inception-net
 
+  portainer:
+    build: ./requirements/bonus/portainer
+    container_name: portainer
+    restart: always
+    networks:
+      - inception-net
+    secrets:
+      - portainer_pwd
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    command: ["/opt/portainer/portainer", "--admin-password-file", "/run/secrets/portainer_pwd"]
+
 secrets:
   db:
     file: ./requirements/secrets/DB.TXT
   user:
     file: ./requirements/secrets/USER.TXT
+  portainer_pwd:
+    file: ./requirements/secrets/PORTAINER_PWD.TXT
 
 volumes:
   website_files:
@@ -72,6 +87,12 @@ volumes:
         o: bind
         device: /home/lgoderne/data/mariadb
 
+  portainer_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/lgoderne/data/portainer
   
 networks:
   inception-net:
