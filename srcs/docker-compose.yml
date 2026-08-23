@@ -64,6 +64,13 @@ services:
       - portainer_data:/data
     command: ["/opt/portainer/portainer", "--admin-password-file", "/run/secrets/portainer_pwd"]
 
+  redis:
+    build: ./requirements/bonus/redis
+    container_name: redis
+    restart: always
+    networks:
+      - inception-net
+
 secrets:
   db:
     file: ./requirements/secrets/DB.TXT

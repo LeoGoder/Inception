@@ -5,6 +5,6 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x entrypoint.sh
-RUN sed -i 's/listen = \/run\/php\/php8.2-fpm.sock/listen = 9000/g' /etc/php/8.2/fpm/pool.d/www.conf
+RUN sed -i 's/listen = .*/listen = 9000/g' /etc/php/8.2/fpm/pool.d/www.conf
 
 CMD ["./entrypoint.sh"]
