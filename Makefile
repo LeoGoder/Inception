@@ -22,3 +22,4 @@ clean:
 
 fclean: clean
 	sudo docker system prune -a --volumes -f
+	sudo docker builder prune -a

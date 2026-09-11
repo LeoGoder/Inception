@@ -71,6 +71,20 @@ services:
     networks:
       - inception-net
 
+  ftp:
+    build: ./requirements/bonus/ftp
+    container_name: ftp
+    ports: 
+      - "21:21"
+      - "60000-60100:60000-60100"
+    restart: always
+    secrets:
+      - ftp
+    networks:
+      - inception-net
+    volumes:
+      - website_files:/var/www/html
+
 secrets:
   db:
     file: ./requirements/secrets/DB.TXT
@@ -78,6 +92,8 @@ secrets:
     file: ./requirements/secrets/USER.TXT
   portainer_pwd:
     file: ./requirements/secrets/PORTAINER_PWD.TXT
+  ftp:
+    file: ./requirements/secrets/FTP_USER.TXT
 
 volumes:
   website_files:
