@@ -8,6 +8,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 fi
 
 mysqld_safe &
+PID=$!
 while [ ! -S /run/mysqld/mysqld.sock ]; do
     sleep 1
 done
@@ -22,10 +23,10 @@ if [ ! -d "/var/lib/mysql/${DBNAME}" ]; then
     GRANT ALL PRIVILEGES ON ${DBNAME}.* TO '${DBUSER}'@'%';
     ALTER USER 'root'@'localhost' IDENTIFIED BY '${DBMDP}';
     FLUSH PRIVILEGES;
-    USE ${DBNAME};
-    CREATE TABLE IF NOT EXISTS users (id INT, nom varchar(50));
-    SHOW TABLES;
     "
 fi
 
-wait
+mysqladmin -u root -p"${DBMDP}" shutdown
+wait "$PID"
+
+exec mysqld --user=mysql

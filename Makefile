@@ -1,4 +1,4 @@
-run: up
+all: up
 
 up:
 	mkdir -p /home/lgoderne/data/wordpress
@@ -14,7 +14,7 @@ show:
 	cd srcs/ && sudo docker compose ps
 
 clean:
-	sudo docker compose -f srcs/docker-compose.yml down --rmi all
+	cd srcs/ && sudo docker compose -f docker-compose.yml down --rmi all
 	sudo rm -fr /home/lgoderne/data/wordpress
 	sudo rm -fr /home/lgoderne/data/mariadb
 	sudo rm -fr /home/lgoderne/data/portainer
@@ -23,3 +23,5 @@ clean:
 fclean: clean
 	sudo docker system prune -a --volumes -f
 	sudo docker builder prune -a
+
+re: fclean up

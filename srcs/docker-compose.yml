@@ -1,5 +1,6 @@
 services:
   nginx:
+    image: nginx
     build: ./requirements/nginx
     container_name: nginx
     ports:
@@ -11,6 +12,7 @@ services:
       - website_files:/var/www/html
 
   mariadb:
+    image: mariadb
     build: ./requirements/mariadb
     container_name: mariadb
     secrets:
@@ -23,6 +25,7 @@ services:
       - database:/var/lib/mysql
 
   wordpress:
+    image: wordpress
     build: ./requirements/wordpress
     container_name: wordpress
     secrets:
@@ -38,6 +41,7 @@ services:
 
 # bonus part
   adminer:
+    image: adminer
     build: ./requirements/bonus/adminer
     container_name: adminer
     restart: always
@@ -45,6 +49,7 @@ services:
       - inception-net
 
   static:
+    image: static
     build: ./requirements/bonus/static
     container_name: static
     restart: always
@@ -52,6 +57,7 @@ services:
       - inception-net
 
   portainer:
+    image: portainer
     build: ./requirements/bonus/portainer
     container_name: portainer
     restart: always
@@ -65,6 +71,7 @@ services:
     command: ["/opt/portainer/portainer", "--admin-password-file", "/run/secrets/portainer_pwd"]
 
   redis:
+    image: redis
     build: ./requirements/bonus/redis
     container_name: redis
     restart: always
@@ -72,6 +79,7 @@ services:
       - inception-net
 
   ftp:
+    image: ftp
     build: ./requirements/bonus/ftp
     container_name: ftp
     ports: 
