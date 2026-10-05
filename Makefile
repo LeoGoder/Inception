@@ -15,6 +15,7 @@ show:
 
 clean:
 	cd srcs/ && sudo docker compose -f docker-compose.yml down --rmi all
+	sudo docker volume rm database portainer_data website_files
 	sudo rm -fr /home/lgoderne/data/wordpress
 	sudo rm -fr /home/lgoderne/data/mariadb
 	sudo rm -fr /home/lgoderne/data/portainer

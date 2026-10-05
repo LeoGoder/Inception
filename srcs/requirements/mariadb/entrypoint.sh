@@ -28,5 +28,4 @@ fi
 
 mysqladmin -u root -p"${DBMDP}" shutdown
 wait "$PID"
-
 exec mysqld --user=mysql
